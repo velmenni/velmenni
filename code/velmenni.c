@@ -1,5 +1,7 @@
 /**
  * Copyright (C) 2012 Velmenni. All rights reserved.
+ *
+ * vim:noet
  */
 
 #pragma platform(VEX)
@@ -19,7 +21,8 @@
  * leftMotor: the value of the left motor.
  * rightMotor: the value of the right motor.
  */
-void setMotors(word leftMotor, word rightMotor) {
+void setMotors(word leftMotor, word rightMotor)
+{
 	motor[port3] = leftMotor;
 	motor[port2] = rightMotor * -1; // reflected.
 }
@@ -29,7 +32,8 @@ void setMotors(word leftMotor, word rightMotor) {
  *
  * value: positive values raise the shovel; negative values lower it.
  */
-void setShovelElevationMotors(word value) {
+void setShovelElevationMotors(word value)
+{
 	// Do nothing for now.
 }
 
@@ -38,7 +42,8 @@ void setShovelElevationMotors(word value) {
  *
  * value: positive values open the shovel; negative values close it.
  */
-void setShovelGripMotors(word value) {
+void setShovelGripMotors(word value)
+{
 	// Do nothing for now.
 }
 
