@@ -69,8 +69,10 @@ task usercontrol()
 		 * Drive control.
 		 * Axis 3 (left stick vertical) controls the left side when facing the back.
 		 * Axis 2 (right stick vertical) controls the right side when facing the back.
+		 * 5U = Turbo (double speed).
 		 */
-		setMotors(vexRT[Ch3], vexRT[Ch2]);
+		word speedRatio = vexRT[btn5U] ? 1 : 2;
+		setMotors(vexRT[Ch3]/speedRatio, vexRT[Ch2]/speedRatio);
 
 		/**
 		 * Raise/lower shovel.
