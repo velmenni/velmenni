@@ -71,7 +71,7 @@ task usercontrol()
 		 * Axis 2 (right stick vertical) controls the right side when facing the back.
 		 * 5U = Turbo (double speed).
 		 */
-		word speedRatio = vexRT[btn5U] ? 1 : 2;
+		word speedRatio = vexRT[Btn5U] == 1 ? 1 : 4;
 		setMotors(vexRT[Ch3]/speedRatio, vexRT[Ch2]/speedRatio);
 
 		/**
