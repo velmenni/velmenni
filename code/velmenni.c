@@ -15,6 +15,13 @@
 #include "Vex_Competition_Includes.c"   //Main competition background code...do not modify!
 
 /**
+ * If defined, the two controller scheme is used.
+ * One player controls the driving, while the other controls
+ * the shovel.
+ */
+//#define TWO_CONTROLLERS
+
+/**
  * Sets the values for the left and right drive motors.
  * For each motor, 127 is full speed forward, and -127 is full speed reverse.
  *
@@ -74,6 +81,19 @@ task usercontrol()
 		word speedRatio = vexRT[Btn5U] == 1 ? 1 : 4;
 		setMotors(vexRT[Ch3]/speedRatio, vexRT[Ch2]/speedRatio);
 
+#ifdef TWO_CONTROLLERS
+		/**
+		 * Raise/lower shovel.
+		 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
+		 */
+		setShovelElevationMotors(vexRT[Ch3Xmtr2]/2);
+
+		/**
+		 * Open/close shovel.
+		 * C2:Axis 2:positive = Open; C2:Axis 2:negative = Close.
+		 */
+		setShovelGripMotors(vexRT[Ch2Xmtr2]/4);
+#else
 		/**
 		 * Raise/lower shovel.
 		 * 6U = Raise; 6D = Lower.
@@ -87,5 +107,6 @@ task usercontrol()
 		 */
 		setShovelGripMotors((vexRT[Btn8R] ? 32 : 0)
 		                  - (vexRT[Btn8L] ? 32 : 0));
+#endif
 	}
 }
