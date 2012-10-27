@@ -78,14 +78,14 @@ task usercontrol()
 		 * Raise/lower shovel.
 		 * 6U = Raise; 6D = Lower.
 		 */
-		setShovelElevationMotors((vexRT[btn6U] ? 64 : 0)
-		                       - (vexRT[btn6D] ? 64 : 0));
+		setShovelElevationMotors((vexRT[Btn6U] ? 64 : 0)
+		                       - (vexRT[Btn6D] ? 64 : 0));
 
 		/**
 		 * Open/close shovel.
 		 * 8R = Open; 8L = Close.
 		 */
-		setShovelGripMotors((vexRT[btn8R] ? 32 : 0)
-		                  - (vexRT[btn8L] ? 32 : 0));
+		setShovelGripMotors((vexRT[Btn8R] ? 32 : 0)
+		                  - (vexRT[Btn8L] ? 32 : 0));
 	}
 }
