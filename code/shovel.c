@@ -11,11 +11,11 @@
  */
 void setShovelElevationMotors(word value)
 {
-	motor[port10] = value;
-	motor[port11] = value;
+	motor[port9] = value;
+	motor[port8] = value;
 
-	motor[port8] = value * -1; // reflected.
-	motor[port9] = value * -1; // reflected.
+	motor[port7] = value * -1; // reflected.
+	motor[port6] = value * -1; // reflected.
 }
 
 /**
@@ -25,6 +25,6 @@ void setShovelElevationMotors(word value)
  */
 void setShovelGripMotors(word value)
 {
-	motor[port7] = value;
-	motor[port6] = value * -1; // reflected.
+	motor[port5] = value;
+	motor[port4] = value * -1; // reflected.
 }
