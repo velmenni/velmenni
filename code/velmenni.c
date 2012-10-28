@@ -35,13 +35,17 @@ void setMotors(word leftMotor, word rightMotor)
 }
 
 /**
- * Sets the values for the shovel's elevation motor(s).
+ * Sets the values for the shovel's elevation motors.
  *
  * value: positive values raise the shovel; negative values lower it.
  */
 void setShovelElevationMotors(word value)
 {
-	// Do nothing for now.
+	motor[port10] = value;
+	motor[port11] = value;
+
+	motor[port8] = value * -1; // reflected.
+	motor[port9] = value * -1; // reflected.
 }
 
 /**
@@ -51,7 +55,8 @@ void setShovelElevationMotors(word value)
  */
 void setShovelGripMotors(word value)
 {
-	// Do nothing for now.
+	motor[port7] = value;
+	motor[port6] = value * -1; // reflected.
 }
 
 void pre_auton()
