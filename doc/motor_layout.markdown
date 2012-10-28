@@ -1,8 +1,8 @@
 # Motor Layout
 
 1. Nothing.
-2. Left drive motor (reflected).
-3. Right drive motor.
+2. Right drive motor (reflected).
+3. Left drive motor.
 4. Nothing (possibly additional left drive motor in the future).
 5. Nothing (possibly additional right drive motor in the future).
 6. Grip motor (reflected).
