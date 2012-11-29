@@ -73,18 +73,34 @@ task autonomous()
 	AutonomousCodePlaceholderForTesting();
 }
 
+float speedDivisor = 1.0;
+
+task speedAdjustment() {
+	while (true) {
+		///* Gradual adjustment of limit via button 5U. */
+		if (vexRT[Btn5U] && speedDivisor < 4.0) {
+			speedDivisor += 0.05;
+		} else if (!vexRT[Btn5U] && speedDivisor > 1.0) {
+			speedDivisor -= 0.05;
+		}
+
+		Sleep(10);
+	}
+}
+
 task usercontrol()
 {
+	StartTask(speedAdjustment);
+
 	while (true)
 	{
 		/**
 		 * Drive control.
 		 * Axis 3 (left stick vertical) controls the left side when facing the back.
 		 * Axis 2 (right stick vertical) controls the right side when facing the back.
-		 * 5U = Turbo (double speed).
+		 * 5U = Limit (half speed). Gradual. See 'speedAdjustment' task.
 		 */
-		word speedRatio = vexRT[Btn5U] == 1 ? 1 : 4;
-		setMotors(vexRT[Ch3]/speedRatio, vexRT[Ch2]/speedRatio);
+		setMotors(vexRT[Ch3]/speedDivisor, vexRT[Ch2]/speedDivisor);
 
 #ifdef TWO_CONTROLLERS
 		/**
