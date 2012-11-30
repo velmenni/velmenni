@@ -35,11 +35,11 @@ void setMotors(word leftMotor, word rightMotor)
 }
 
 /**
- * Sets the values for the shovel's elevation motors.
+ * Sets the values for the spatula's elevation motors.
  *
- * value: positive values raise the shovel; negative values lower it.
+ * value: positive values raise the spatula; negative values lower it.
  */
-void setShovelElevationMotors(word value)
+void setSpatulaElevationMotors(word value)
 {
 	motor[port9] = value;
 	motor[port8] = value;
@@ -49,11 +49,11 @@ void setShovelElevationMotors(word value)
 }
 
 /**
- * Sets the values for the shovel's grip motors.
+ * Sets the values for the spatula's pitch adjustment motors.
  *
- * value: positive values open the shovel; negative values close it.
+ * value: positive values increase pitch; negative values decrease it.
  */
-void setShovelGripMotors(word value)
+void setSpatulaPitchMotors(word value)
 {
 	motor[port5] = value;
 	motor[port4] = value * -1; // reflected.
@@ -77,7 +77,7 @@ float speedDivisor = 1.0;
 
 task speedAdjustment() {
 	while (true) {
-		///* Gradual adjustment of limit via button 5U. */
+		/* Gradual adjustment of limit via button 5U. */
 		if (vexRT[Btn5U] && speedDivisor < 4.0) {
 			speedDivisor += 0.05;
 		} else if (!vexRT[Btn5U] && speedDivisor > 1.0) {
@@ -107,27 +107,27 @@ task usercontrol()
 		 * Raise/lower shovel.
 		 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
 		 */
-		setShovelElevationMotors(vexRT[Ch3Xmtr2]/2);
+		setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/speedDivisor);
 
 		/**
-		 * Open/close shovel.
-		 * C2:Axis 2:positive = Open; C2:Axis 2:negative = Close.
+		 * Adjust spatula pitch.
+		 * C2:Axis 2:positive = Raise; C2:Axis 2:negative = Lower.
 		 */
-		setShovelGripMotors(vexRT[Ch2Xmtr2]/4);
+		setSpatulaPitchMotors(vexRT[Ch2Xmtr2]/2/speedDivisor);
 #else
 		/**
-		 * Raise/lower shovel.
+		 * Raise/lower spatula.
 		 * 6U = Raise; 6D = Lower.
 		 */
-		setShovelElevationMotors((vexRT[Btn6U] ? 64 : 0)
-		                       - (vexRT[Btn6D] ? 64 : 0));
+		setSpatulaElevationMotors((vexRT[Btn6U] ? 64 : 0)/speedDivisor
+		                        - (vexRT[Btn6D] ? 64 : 0)/speedDivisor);
 
 		/**
-		 * Open/close shovel.
-		 * 8R = Open; 8L = Close.
+		 * Adjust spatula pitch.
+		 * 8U = Raise; 8D = Lower.
 		 */
-		setShovelGripMotors((vexRT[Btn8R] ? 32 : 0)
-		                  - (vexRT[Btn8L] ? 32 : 0));
+		setSpatulaPitchMotors((vexRT[Btn8U] ? 64 : 0)/speedDivisor
+		                    - (vexRT[Btn8D] ? 64 : 0)/speedDivisor);
 #endif
 	}
 }
