@@ -30,8 +30,8 @@
  */
 void setMotors(word leftMotor, word rightMotor)
 {
-	motor[port3] = leftMotor;
-	motor[port2] = rightMotor * -1; // reflected.
+	motor[port9] = leftMotor;
+	motor[port8] = rightMotor * -1; // reflected.
 }
 
 /**
@@ -41,11 +41,11 @@ void setMotors(word leftMotor, word rightMotor)
  */
 void setSpatulaElevationMotors(word value)
 {
-	motor[port9] = value;
-	motor[port8] = value;
+	motor[port7] = value;
+	motor[port6] = value;
 
-	motor[port7] = value * -1; // reflected.
-	motor[port6] = value * -1; // reflected.
+	motor[port5] = value * -1; // reflected.
+	motor[port4] = value * -1; // reflected.
 }
 
 /**
@@ -55,8 +55,8 @@ void setSpatulaElevationMotors(word value)
  */
 void setSpatulaPitchMotors(word value)
 {
-	motor[port5] = value;
-	motor[port4] = value * -1; // reflected.
+	motor[port3] = value;
+	motor[port2] = value * -1; // reflected.
 }
 
 void pre_auton()
