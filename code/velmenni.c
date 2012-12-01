@@ -85,21 +85,22 @@ task speedAdjustment() {
 			speedDivisor -= 0.05;
 		}
 
-#ifdef TWO_CONTROLLERS
-		/* Gradual adjustment of spatula limit via button 5D. */
-		if (vexRT[Btn5DXmtr2] && spatulaSpeedDivisor < 4.0) {
-			spatulaSpeedDivisor += 0.025;
-		} else if (!vexRT[Btn5DXmtr2] && spatulaSpeedDivisor > 1.0) {
-			spatulaSpeedDivisor -= 0.025;
+		/* Note: digital sensor #5 controls whether autonomous is enabled or not. */
+		if (SensorBoolean[dgtl5]) {
+			/* Gradual adjustment of spatula limit via button 5D Xmtr2. */
+			if (vexRT[Btn5DXmtr2] && spatulaSpeedDivisor < 4.0) {
+				spatulaSpeedDivisor += 0.025;
+			} else if (!vexRT[Btn5DXmtr2] && spatulaSpeedDivisor > 1.0) {
+				spatulaSpeedDivisor -= 0.025;
+			}
+		} else {
+			/* Gradual adjustment of spatula limit via button 5D. */
+			if (vexRT[Btn5D] && spatulaSpeedDivisor < 4.0) {
+				spatulaSpeedDivisor += 0.025;
+			} else if (!vexRT[Btn5D] && spatulaSpeedDivisor > 1.0) {
+				spatulaSpeedDivisor -= 0.025;
+			}
 		}
-#else
-		/* Gradual adjustment of spatula limit via button 5D. */
-		if (vexRT[Btn5D] && spatulaSpeedDivisor < 4.0) {
-			spatulaSpeedDivisor += 0.025;
-		} else if (!vexRT[Btn5D] && spatulaSpeedDivisor > 1.0) {
-			spatulaSpeedDivisor -= 0.025;
-		}
-#endif
 
 		Sleep(10);
 	}
@@ -119,32 +120,33 @@ task usercontrol()
 		 */
 		setMotors(vexRT[Ch3]/speedDivisor, vexRT[Ch2]/speedDivisor);
 
-#ifdef TWO_CONTROLLERS
-		/**
-		 * Raise/lower shovel.
-		 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
-		 */
-		setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/spatulaSpeedDivisor);
+		/* Note: digital sensor #5 controls whether autonomous is enabled or not. */
+		if (SensorBoolean[dgtl5]) {
+			/**
+			 * Raise/lower shovel.
+			 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
+			 */
+			setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/spatulaSpeedDivisor);
 
-		/**
-		 * Adjust spatula pitch.
-		 * C2:Axis 2:positive = Raise; C2:Axis 2:negative = Lower.
-		 */
-		setSpatulaPitchMotors(vexRT[Ch2Xmtr2]/2/spatulaSpeedDivisor);
-#else
-		/**
-		 * Raise/lower spatula.
-		 * 6U = Raise; 6D = Lower.
-		 */
-		setSpatulaElevationMotors((vexRT[Btn6U] ? 64 : 0)/spatulaSpeedDivisor
-		                        - (vexRT[Btn6D] ? 64 : 0)/spatulaSpeedDivisor);
+			/**
+			 * Adjust spatula pitch.
+			 * C2:Axis 2:positive = Raise; C2:Axis 2:negative = Lower.
+			 */
+			setSpatulaPitchMotors(vexRT[Ch2Xmtr2]/2/spatulaSpeedDivisor);
+		} else {
+			/**
+			 * Raise/lower spatula.
+			 * 6U = Raise; 6D = Lower.
+			 */
+			setSpatulaElevationMotors((vexRT[Btn6U] ? 64 : 0)/spatulaSpeedDivisor
+			                        - (vexRT[Btn6D] ? 64 : 0)/spatulaSpeedDivisor);
 
-		/**
-		 * Adjust spatula pitch.
-		 * 8U = Raise; 8D = Lower.
-		 */
-		setSpatulaPitchMotors((vexRT[Btn8U] ? 64 : 0)/spatulaSpeedDivisor
-		                    - (vexRT[Btn8D] ? 64 : 0)/spatulaSpeedDivisor);
-#endif
+			/**
+			 * Adjust spatula pitch.
+			 * 8U = Raise; 8D = Lower.
+			 */
+			setSpatulaPitchMotors((vexRT[Btn8U] ? 64 : 0)/spatulaSpeedDivisor
+			                    - (vexRT[Btn8D] ? 64 : 0)/spatulaSpeedDivisor);
+		}
 	}
 }
