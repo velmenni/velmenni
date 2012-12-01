@@ -95,7 +95,7 @@ task speedAdjustment() {
 			}
 		} else {
 			/* Gradual adjustment of spatula limit via button 5D. */
-			if (vexRT[Btn5D] && spatulaSpeedDivisor < 4.0) {
+			if (vexRT[Btn5D] && spatulaSpeedDivisor < 2.0) {
 				spatulaSpeedDivisor += 0.025;
 			} else if (!vexRT[Btn5D] && spatulaSpeedDivisor > 1.0) {
 				spatulaSpeedDivisor -= 0.025;
