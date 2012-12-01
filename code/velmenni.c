@@ -19,7 +19,7 @@
  * One player controls the driving, while the other controls
  * the shovel.
  */
-//#define TWO_CONTROLLERS
+#define TWO_CONTROLLERS
 
 /**
  * Sets the values for the left and right drive motors.
