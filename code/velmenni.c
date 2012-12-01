@@ -7,7 +7,7 @@
 #pragma platform(VEX)
 
 //Competition Control and Duration Settings
-#pragma competitionControl(OFF)
+#pragma competitionControl(ON)
 //#pragma competitionControl(Competition)
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
@@ -74,6 +74,7 @@ task autonomous()
 }
 
 float speedDivisor = 1.0;
+float spatulaSpeedDivisor = 1.0;
 
 task speedAdjustment() {
 	while (true) {
@@ -82,6 +83,13 @@ task speedAdjustment() {
 			speedDivisor += 0.05;
 		} else if (!vexRT[Btn5U] && speedDivisor > 1.0) {
 			speedDivisor -= 0.05;
+		}
+
+		/* Gradual adjustment of spatula limit via button 5D. */
+		if (vexRT[Btn5D] && spatulaSpeedDivisor < 4.0) {
+			spatulaSpeedDivisor += 0.025;
+		} else if (!vexRT[Btn5D] && spatulaSpeedDivisor > 1.0) {
+			spatulaSpeedDivisor -= 0.025;
 		}
 
 		Sleep(10);
@@ -107,27 +115,27 @@ task usercontrol()
 		 * Raise/lower shovel.
 		 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
 		 */
-		setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/speedDivisor);
+		setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/spatulaSpeedDivisor);
 
 		/**
 		 * Adjust spatula pitch.
 		 * C2:Axis 2:positive = Raise; C2:Axis 2:negative = Lower.
 		 */
-		setSpatulaPitchMotors(vexRT[Ch2Xmtr2]/2/speedDivisor);
+		setSpatulaPitchMotors(vexRT[Ch2Xmtr2]/2/spatulaSpeedDivisor);
 #else
 		/**
 		 * Raise/lower spatula.
 		 * 6U = Raise; 6D = Lower.
 		 */
-		setSpatulaElevationMotors((vexRT[Btn6U] ? 64 : 0)/speedDivisor
-		                        - (vexRT[Btn6D] ? 64 : 0)/speedDivisor);
+		setSpatulaElevationMotors((vexRT[Btn6U] ? 64 : 0)/spatulaSpeedDivisor
+		                        - (vexRT[Btn6D] ? 64 : 0)/spatulaSpeedDivisor);
 
 		/**
 		 * Adjust spatula pitch.
 		 * 8U = Raise; 8D = Lower.
 		 */
-		setSpatulaPitchMotors((vexRT[Btn8U] ? 64 : 0)/speedDivisor
-		                    - (vexRT[Btn8D] ? 64 : 0)/speedDivisor);
+		setSpatulaPitchMotors((vexRT[Btn8U] ? 64 : 0)/spatulaSpeedDivisor
+		                    - (vexRT[Btn8D] ? 64 : 0)/spatulaSpeedDivisor);
 #endif
 	}
 }
