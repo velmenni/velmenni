@@ -71,13 +71,15 @@ void pre_auton()
 task autonomous()
 {
 	setSpatulaElevationMotors(64);
-	Sleep(3000);
-	setSpatulaElevationMotors(0);
-	setSpatulaPitchMotors(-32);
 	Sleep(1000);
-	setSpatulaPitchMotors(32);
+	setSpatulaPitchMotors(-32);
+	Sleep(700);
+	setSpatulaElevationMotors(0);
+	Sleep(500);
+	setSpatulaPitchMotors(64);
+	Sleep(200);
 	setSpatulaElevationMotors(-64);
-	Sleep(2000);
+	Sleep(1000);
 	setSpatulaPitchMotors(0);
 	setSpatulaElevationMotors(0);
 }
