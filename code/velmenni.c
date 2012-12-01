@@ -70,7 +70,16 @@ void pre_auton()
 
 task autonomous()
 {
-	AutonomousCodePlaceholderForTesting();
+	setSpatulaElevationMotors(64);
+	Sleep(3000);
+	setSpatulaElevationMotors(0);
+	setSpatulaPitchMotors(-32);
+	Sleep(1000);
+	setSpatulaPitchMotors(32);
+	setSpatulaElevationMotors(-64);
+	Sleep(2000);
+	setSpatulaPitchMotors(0);
+	setSpatulaElevationMotors(0);
 }
 
 float speedDivisor = 1.0;
