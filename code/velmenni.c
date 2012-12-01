@@ -7,7 +7,7 @@
 #pragma platform(VEX)
 
 //Competition Control and Duration Settings
-#pragma competitionControl(ON)
+#pragma competitionControl(Competition)
 //#pragma competitionControl(Competition)
 #pragma autonomousDuration(15)
 #pragma userControlDuration(105)
@@ -85,12 +85,21 @@ task speedAdjustment() {
 			speedDivisor -= 0.05;
 		}
 
+#ifdef TWO_CONTROLLERS
+		/* Gradual adjustment of spatula limit via button 5D. */
+		if (vexRT[Btn5DXmtr2] && spatulaSpeedDivisor < 4.0) {
+			spatulaSpeedDivisor += 0.025;
+		} else if (!vexRT[Btn5DXmtr2] && spatulaSpeedDivisor > 1.0) {
+			spatulaSpeedDivisor -= 0.025;
+		}
+#else
 		/* Gradual adjustment of spatula limit via button 5D. */
 		if (vexRT[Btn5D] && spatulaSpeedDivisor < 4.0) {
 			spatulaSpeedDivisor += 0.025;
 		} else if (!vexRT[Btn5D] && spatulaSpeedDivisor > 1.0) {
 			spatulaSpeedDivisor -= 0.025;
 		}
+#endif
 
 		Sleep(10);
 	}
