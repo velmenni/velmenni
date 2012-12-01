@@ -126,7 +126,7 @@ task usercontrol()
 			 * Raise/lower shovel.
 			 * C2:Axis 3:positive = Raise; C2:Axis 3:negative = Lower.
 			 */
-			setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/2/spatulaSpeedDivisor);
+			setSpatulaElevationMotors(vexRT[Ch3Xmtr2]/-2);
 
 			/**
 			 * Adjust spatula pitch.
