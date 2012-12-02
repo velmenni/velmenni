@@ -1,0 +1,8 @@
+# Possible Improvements after Competitions
+
+## At McMath, 2012-12-01
+
+- Improve drive system: at the moment, it can barely move over sacks, and gets stuck frequently. It also has a tendency to wear down the clutches like there's no tomorrow.
+- New pick up system: our current one sucks. Ugh.
+- Better autonomous. We broke it.
+- To win a competition.
