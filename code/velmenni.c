@@ -70,18 +70,19 @@ void pre_auton()
 
 task autonomous()
 {
-	setSpatulaElevationMotors(64);
-	Sleep(1000);
-	setSpatulaPitchMotors(-32);
-	Sleep(700);
-	setSpatulaElevationMotors(0);
-	Sleep(500);
-	setSpatulaPitchMotors(64);
-	Sleep(200);
-	setSpatulaElevationMotors(-64);
-	Sleep(1000);
-	setSpatulaPitchMotors(0);
-	setSpatulaElevationMotors(0);
+  setSpatulaElevationMotors(64);
+  setSpatulaPitchMotors(-16);
+  Sleep(1500);
+  setSpatulaElevationMotors(0);
+  setSpatulaPitchMotors(-128);
+  Sleep(1000);
+  /* Begin to reset. */
+  setSpatulaPitchMotors(128);
+  Sleep(500)
+  setSpatulaElevationMotors(-32);
+  Sleep(1000);
+  setSpatulaPitchMotors(0);
+  setSpatulaElevationMotors(0);
 }
 
 float speedDivisor = 1.0;
